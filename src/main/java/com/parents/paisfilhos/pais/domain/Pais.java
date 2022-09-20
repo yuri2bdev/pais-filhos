@@ -4,7 +4,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -21,6 +24,8 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Pais {
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id", updatable = false, unique = true, nullable = false)
 	private UUID idPais;
 	@NotBlank
 	private String nomeCompleto;
@@ -35,16 +40,14 @@ public class Pais {
 	private LocalDate dataNascimento;
 	@CPF
 	private String cpf;
-	
 	@NotNull
 	private Boolean aceitaTermos;
-	
+
 	private LocalDateTime dataHoraDoCadastro;
 	private LocalDateTime dataHoraDaUltimaAlteracao;
-	
+
 	public Pais(@NotBlank String nomeCompleto, @NotBlank @Email String email, @NotBlank String celular, String telefone,
 			Sexo sexo, @NotNull LocalDate dataNascimento, @CPF String cpf, @NotNull Boolean aceitaTermos) {
-		this.idPais = UUID.randomUUID();
 		this.nomeCompleto = nomeCompleto;
 		this.email = email;
 		this.celular = celular;
@@ -54,8 +57,7 @@ public class Pais {
 		this.cpf = cpf;
 		this.aceitaTermos = aceitaTermos;
 		this.dataHoraDoCadastro = LocalDateTime.now();
-		
+
 	}
-	
-	
+
 }
